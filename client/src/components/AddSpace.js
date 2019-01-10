@@ -11,7 +11,8 @@ class AddSpace extends Component {
             <ControlLabel>Address</ControlLabel>
             <FormControl
               className='input-street-address'
-              onChange={ event => this.setState({ streetAddress: event.target.value }) }
+              onChange={ event =>
+                this.setState({ streetAddress: event.target.value }) }
             />
           </FormGroup>
         </Form>

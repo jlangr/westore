@@ -10,7 +10,7 @@ const changeText = (component, selector, value) =>
 
 describe('an AddSpace form', () => {
   it('captures the property address', () => {
-    const component = shallow(<AddSpace />) //<callout id="code.AddSpace.test.1"/>
+    const component = shallow(<AddSpace />)
     //START_HIGHLIGHT
 
     // START:change-text
@@ -18,7 +18,7 @@ describe('an AddSpace form', () => {
     // END:change-text
 
     //END_HIGHLIGHT
-    expect(component.state().streetAddress).toEqual('1 Main St') //<callout id="code.AddSpace.test.3"/>
+    expect(component.state().streetAddress).toEqual('1 Main St')
   })
 })
 // END:extract-change-text

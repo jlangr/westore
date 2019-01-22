@@ -18,7 +18,7 @@ class AddSpace extends Component {
           </FormGroup>
           {/* START_HIGHLIGHT */}
           <FormGroup>
-            <ControlLabel>Address</ControlLabel>
+            <ControlLabel>City</ControlLabel>
             <FormControl
               className='input-city'
               onChange={ event =>

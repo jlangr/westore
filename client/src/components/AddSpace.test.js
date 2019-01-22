@@ -2,23 +2,25 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import AddSpace from './AddSpace'
 
-// START:extract-change-text
-//START_HIGHLIGHT
 const changeText = (component, selector, value) =>
   component.find(selector).simulate('change', { target: { value }})
-//END_HIGHLIGHT
 
 describe('an AddSpace form', () => {
   it('captures the property address', () => {
     const component = shallow(<AddSpace />)
-    //START_HIGHLIGHT
 
-    // START:change-text
     changeText(component, '.input-street-address', '1 Main St')
-    // END:change-text
 
-    //END_HIGHLIGHT
     expect(component.state().streetAddress).toEqual('1 Main St')
   })
+
+  // START:new-test
+  it('captures the city', () => {
+    const component = shallow(<AddSpace />)
+
+    changeText(component, '.input-city', 'Laurel')
+
+    expect(component.state().city).toEqual('Laurel')
+  })
+  // END:new-test
 })
-// END:extract-change-text

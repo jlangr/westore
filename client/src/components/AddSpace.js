@@ -1,35 +1,24 @@
 import React, { Component } from 'react'
-import { Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
+import FormField from './FormField'
 
 class AddSpace extends Component {
   render() {
-    // START:changed-jsx
     return (
-      <div>
-        <h1>WeStore</h1>
-        <Form>
-          <FormGroup>
-            <ControlLabel>Address</ControlLabel>
-            <FormControl
-              className='input-street-address'
-              onChange={ event =>
-                this.setState({ streetAddress: event.target.value }) }
-            />
-          </FormGroup>
-          {/* START_HIGHLIGHT */}
-          <FormGroup>
-            <ControlLabel>City</ControlLabel>
-            <FormControl
-              className='input-city'
-              onChange={ event =>
-                this.setState({ city: event.target.value }) }
-            />
-          </FormGroup>
-          {/* END_HIGHLIGHT */}
-        </Form>
-      </div>
+      <code language="html">
+        <div>
+          <h1>WeStore</h1>
+          <Form>
+            <FormField label='City'
+              bsClass='input-city'
+              stateKey='city' parent={this} />
+            <FormField label='Street Address'
+              bsClass='input-street-address'
+              stateKey='streetAddress' parent={this} />
+          </Form>
+        </div>
+      </code>
     )
-    // END:changed-jsx
   }
 }
 

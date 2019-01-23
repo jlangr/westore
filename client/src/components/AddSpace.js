@@ -9,11 +9,9 @@ class AddSpace extends Component {
         <div>
           <h1>WeStore</h1>
           <Form>
-            <FormField label='City'
-              bsClass='input-city'
+            <FormField label='City' bsClass='input-city'
               stateKey='city' parent={this} />
-            <FormField label='Street Address'
-              bsClass='input-street-address'
+            <FormField label='Street Address' bsClass='input-street-address'
               stateKey='streetAddress' parent={this} />
           </Form>
         </div>

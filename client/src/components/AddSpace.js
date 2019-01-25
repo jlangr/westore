@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import FormField from './FormField'
 
 class AddSpace extends Component {
@@ -13,6 +13,12 @@ class AddSpace extends Component {
               stateKey='city' parent={this} />
             <FormField label='Street Address' bsClass='input-street-address'
               stateKey='streetAddress' parent={this} />
+            {/* START_HIGHLIGHT */}
+            <Button bsClass='button-submit'
+              onClick={() => this.props.submitFn(this.state)}>
+              Add
+            </Button>
+            {/* END_HIGHLIGHT */}
           </Form>
         </div>
       </code>

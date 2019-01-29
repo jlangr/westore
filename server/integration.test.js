@@ -9,4 +9,18 @@ describe('space', () => {
 
     expect(json).toEqual(1)
   })
+
+  describe('get spaces', () => {
+    it('returns added space', async () => {
+      await axios.post('http://localhost:3002/space',
+        {  'city': 'A', 'street-address': '1' })
+      const response = await axios.get('http://localhost:3002/spaces')
+
+      const json = response.data
+
+      expect(json).toEqual([
+        { 'city': 'A', 'street-address': '1', 'id': 1 }
+      ])
+    })
+  })
 })

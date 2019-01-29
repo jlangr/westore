@@ -10,6 +10,7 @@ describe('space', () => {
     expect(json).toEqual(1)
   })
 
+  // START_HIGHLIGHT
   describe('get spaces', () => {
     it('returns added space', async () => {
       await axios.post('http://localhost:3002/space',
@@ -23,4 +24,5 @@ describe('space', () => {
       ])
     })
   })
+  // END_HIGHLIGHT
 })

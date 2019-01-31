@@ -15,7 +15,7 @@ describe('when posting a space', () => {
   })
 
 // START_HIGHLIGHT
-  it('persists the space', async () => {
+  it('persists at the server', async () => {
 // END_HIGHLIGHT
     await axios.post(url('/space'),
       {  'city': 'A', 'street-address': '1' })

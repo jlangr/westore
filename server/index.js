@@ -1,6 +1,7 @@
 import express from 'express'
-// START_HIGHLIGHT
 import bodyParser from 'body-parser'
+// START_HIGHLIGHT
+import * as Routes from './routes'
 // END_HIGHLIGHT
 
 const app = express()
@@ -14,23 +15,10 @@ const allowCORS = app => {
 }
 allowCORS(app)
 
-// START_HIGHLIGHT
 app.use(bodyParser.json())
 
-let space = undefined
-// END_HIGHLIGHT
-
-app.route('/space').post((request, response) => {
 // START_HIGHLIGHT
-  space = request.body
-  space.id = 1
-// END_HIGHLIGHT
-  response.status(200).json(1)
-})
-
-// START_HIGHLIGHT
-app.route('/spaces').get((request, response) =>
-  response.send([ space ]))
+Routes.configure(app)
 // END_HIGHLIGHT
 
 app.listen(3002, () => console.log(`server listening`))

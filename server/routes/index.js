@@ -8,8 +8,8 @@ export const configure = app => {
   app.route('/spaces').get(getSpaces)
   // START_HIGHLIGHT
   if (isTestServer())
-    app.route('/spaces/clear').get(clearSpaces)
   // END_HIGHLIGHT
+    app.route('/spaces/clear').get(clearSpaces)
 }
 // END:clear
 

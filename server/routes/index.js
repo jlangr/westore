@@ -1,8 +1,10 @@
-// START_HIGHLIGHT
+// START:clear
 let spaces = []
 
+// ...
+// END:clear
+
 const maxId = () => spaces.length
-// END_HIGHLIGHT
 
 export const configure = app => {
   app.route('/space').post(postSpace)
@@ -19,6 +21,11 @@ export const postSpace = (request, response) => {
 }
 
 export const getSpaces = (request, response) =>
-// START_HIGHLIGHT
   response.send(spaces)
+// START:clear
+
+// START_HIGHLIGHT
+export const clearSpaces = () =>
+  spaces.length = 0
 // END_HIGHLIGHT
+// END:clear

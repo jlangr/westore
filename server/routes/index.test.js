@@ -1,17 +1,21 @@
 import * as Routes from './index.js'
-// START_HIGHLIGHT
 import MockExpress from 'jest-mock-express'
-// END_HIGHLIGHT
 
+// START:clear
 describe('when posting spaces', () => {
   let response
   const aSpace = { city: 'A', address: '1' }
 
   beforeEach(() => {
     response = MockExpress.response()
+// START_HIGHLIGHT
+    Routes.clearSpaces()
+// END_HIGHLIGHT
     Routes.postSpace({ body: aSpace }, response)
   })
+  // ...
 
+// END:clear
   it('returns generated ID', () =>
     expect(response.json).toHaveBeenCalledWith(1))
 
@@ -38,4 +42,6 @@ describe('when posting spaces', () => {
       expect(response.send).toHaveBeenCalledWith([ aSpace, anotherSpace ])
     })
   })
+// START:clear
 })
+// END:clear

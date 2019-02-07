@@ -7,10 +7,10 @@ export const configure = app => {
   app.route('/space').post(postSpace)
   app.route('/spaces').get(getSpaces)
   // START_HIGHLIGHT
-  app.route('/spaces/clear').get(clearSpaces)
+  if (isTestServer())
+    app.route('/spaces/clear').get(clearSpaces)
   // END_HIGHLIGHT
 }
-// ...
 // END:clear
 
 export const postSpace = (request, response) => {

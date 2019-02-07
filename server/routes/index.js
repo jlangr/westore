@@ -22,14 +22,8 @@ export const postSpace = (request, response) => {
 
 export const getSpaces = (request, response) =>
   response.send(spaces)
-// START:clear
 
-// START_HIGHLIGHT
 export const clearSpaces = (request, response) => {
-// END_HIGHLIGHT
   spaces.length = 0
-// START_HIGHLIGHT
   response.end()
 }
-// END_HIGHLIGHT
-// END:clear

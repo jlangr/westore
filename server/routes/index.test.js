@@ -9,13 +9,13 @@ describe('when posting spaces', () => {
   beforeEach(() => {
     response = MockExpress.response()
 // START_HIGHLIGHT
-    Routes.clearSpaces()
+    Routes.clearSpaces({}, MockExpress.response())
 // END_HIGHLIGHT
     Routes.postSpace({ body: aSpace }, response)
   })
-  // ...
-
+// ...
 // END:clear
+
   it('returns generated ID', () =>
     expect(response.json).toHaveBeenCalledWith(1))
 

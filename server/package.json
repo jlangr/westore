@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:all": "jest --watch",
+    "test:unit": "jest --watch --testPathIgnorePatterns ./integration",
+    "test:integration": "jest --watch ./integration"
   },
   "dependencies": {
     "axios": "^0.18.0",

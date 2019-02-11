@@ -3,7 +3,6 @@ import express from 'express'
 const app = express()
 
 // START_HIGHLIGHT
-<<<<<<< HEAD
 const allowCORS = app => {
 // END_HIGHLIGHT
   app.use((req, res, next) => {

@@ -35,7 +35,9 @@ describe('when posting spaces', () => {
 
       Routes.getSpaces({}, response)
 
-      expect(response.send).toHaveBeenCalledWith([ aSpace, anotherSpace ])
+      expect(response.send).toHaveBeenCalledWith(
+        [ expect.objectContaining(aSpace),
+          expect.objectContaining(anotherSpace) ])
     })
   })
 })

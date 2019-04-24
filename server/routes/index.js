@@ -12,9 +12,9 @@ export const configure = app => {
 export const postSpace = (request, response) => {
   // START_HIGHLIGHT
   const space = request.body
-  space.id = maxId() + 1
-  spaces.push(space)
-  response.status(200).json(space.id)
+  const id = maxId() + 1
+  spaces.push(Object.assign({ id }, space))
+  response.status(200).json(id)
   // END_HIGHLIGHT
 }
 

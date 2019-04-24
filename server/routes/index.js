@@ -16,7 +16,7 @@ export const configure = app => {
 export const postSpace = (request, response) => {
   const space = request.body
   const id = maxId() + 1
-  spaces.push({ ...space, id })
+  spaces.push(Object.assign({ id }, space))
   response.status(200).json(id)
 }
 

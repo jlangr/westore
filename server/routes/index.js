@@ -6,7 +6,11 @@ const maxId = () => spaces.length
 const clearAllSpaces = () => spaces.length = 0
 
 // START_HIGHLIGHT
-const addSpace = space => spaces.push(space)
+const addSpace = space => {
+  const id = maxId() + 1
+  spaces.push(Object.assign({ id }, space))
+  return id
+}
 // END_HIGHLIGHT
 
 // ...
@@ -21,11 +25,10 @@ export const configure = app => {
 // START:leaky
 export const postSpace = (request, response) => {
   const space = request.body
-  space.id = maxId() + 1
 // START_HIGHLIGHT
-  addSpace(space)
+  const id = addSpace(space)
 // END_HIGHLIGHT
-  response.status(200).json(space.id)
+  response.status(200).json(id)
 }
 // END:leaky
 

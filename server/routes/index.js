@@ -3,8 +3,10 @@ let spaces = []
 
 const maxId = () => spaces.length
 
-// START_HIGHLIGHT
 const clearAllSpaces = () => spaces.length = 0
+
+// START_HIGHLIGHT
+const addSpace = space => spaces.push(space)
 // END_HIGHLIGHT
 
 // ...
@@ -16,21 +18,21 @@ export const configure = app => {
     app.route('/spaces/clear').get(clearSpaces)
 }
 
+// START:leaky
 export const postSpace = (request, response) => {
   const space = request.body
   space.id = maxId() + 1
-  spaces.push(space)
+// START_HIGHLIGHT
+  addSpace(space)
+// END_HIGHLIGHT
   response.status(200).json(space.id)
 }
+// END:leaky
 
 export const getSpaces = (request, response) =>
   response.send(spaces)
 
-// START:leaky
 export const clearSpaces = (request, response) => {
-  // START_HIGHLIGHT
   clearAllSpaces()
-  // END_HIGHLIGHT
   response.end()
 }
-// END:leaky

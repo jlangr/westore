@@ -1,7 +1,5 @@
 import * as Routes from './index.js'
-// START_HIGHLIGHT
 import MockExpress from 'jest-mock-express'
-// END_HIGHLIGHT
 
 describe('when posting spaces', () => {
   let response

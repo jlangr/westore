@@ -1,8 +1,4 @@
-// START_HIGHLIGHT
-let spaces = []
-
-const maxId = () => spaces.length
-// END_HIGHLIGHT
+import * as DB from './db'
 
 export const configure = app => {
   app.route('/space').post(postSpace)
@@ -10,15 +6,9 @@ export const configure = app => {
 }
 
 export const postSpace = (request, response) => {
-  // START_HIGHLIGHT
   const space = request.body
-  const id = maxId() + 1
-  spaces.push(Object.assign({ id }, space))
-  response.status(200).json(id)
-  // END_HIGHLIGHT
+  DB.add(space, response)
 }
 
 export const getSpaces = (request, response) =>
-// START_HIGHLIGHT
-  response.send(spaces)
-// END_HIGHLIGHT
+  DB.findAll(response)

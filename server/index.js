@@ -1,8 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-// START_HIGHLIGHT
 import * as Routes from './routes'
-// END_HIGHLIGHT
 
 const app = express()
 
@@ -18,8 +16,6 @@ allowCORS(app)
 
 app.use(bodyParser.json())
 
-// START_HIGHLIGHT
 Routes.configure(app)
-// END_HIGHLIGHT
 
 app.listen(3002, () => console.log(`server listening`))

@@ -3,6 +3,7 @@ import * as DB from './db'
 export const configure = app => {
   app.route('/space').post(postSpace)
   app.route('/spaces').get(getSpaces)
+  app.route('/spaces').delete(clearAllSpaces)
 }
 
 const defaultErrorHandler = error => response.status(500).send(`server error: ${error.message}`)
@@ -19,3 +20,7 @@ export const getSpaces = (request, response) =>
     .then(spaces => response.json(spaces))
     .catch(defaultErrorHandler)
 
+export const clearAllSpaces = (request, response) =>
+  DB.clearAll()
+    .then(() => response.status(200).send())
+    .catch(defaultErrorHandler)

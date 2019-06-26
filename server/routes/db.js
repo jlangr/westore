@@ -19,3 +19,7 @@ export const add = (space) =>
 export const findAll = () =>
   inMongoDbContext((resolve, reject, db) =>
     resolve(db.collection('spaces').find({}).toArray()))
+
+export const clearAll = () =>
+  inMongoDbContext((resolve, reject, db) =>
+    resolve(db.collection('spaces').deleteMany({})))

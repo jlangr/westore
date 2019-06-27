@@ -1,4 +1,5 @@
-import * as DB from './db'
+// import * as DB from './db'
+import { add, clearAll, findAll } from './db'
 
 export const configure = app => {
   app.route('/space').post(postSpace)
@@ -6,21 +7,24 @@ export const configure = app => {
   app.route('/spaces').delete(clearAllSpaces)
 }
 
-const defaultErrorHandler = error => response.status(500).send(`server error: ${error.message}`)
+const sendErrorResponse = (response, error) =>
+  response.status(500).send(`server error: ${error.message}`)
 
 export const postSpace = (request, response) => {
   const space = request.body
-  DB.add(space)
+  add(space)
     .then(id => response.status(201).send(id))
-    .catch(defaultErrorHandler)
+    .catch(error => sendErrorResponse(response, error))
 }
 
 export const getSpaces = (request, response) =>
-  DB.findAll()
+  /* DB. */findAll()
     .then(spaces => response.json(spaces))
-    .catch(defaultErrorHandler)
+    .catch(error => sendErrorResponse(response, error))
 
-export const clearAllSpaces = (request, response) =>
-  DB.clearAll()
+export const clearAllSpaces = (request, response) => {
+  // console.log("DB:", DB)
+  /* DB. */clearAll()
     .then(() => response.status(200).send())
-    .catch(defaultErrorHandler)
+    .catch(error => sendErrorResponse(response, error))
+}

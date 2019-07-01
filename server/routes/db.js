@@ -7,8 +7,9 @@ export const add = space =>
     MongoClient.connect(url, {useNewUrlParser: true})
       .then(client => {
         const db = client.db()
+        // START_HIGHLIGHT
         db.collection('spaces').insertOne(space)
-          .then(result => resolve(result.ops[0]._id))
+        // END_HIGHLIGHT
       }))
 
 export const findAll = () =>
@@ -16,6 +17,8 @@ export const findAll = () =>
     MongoClient.connect(url, {useNewUrlParser: true})
       .then(client => {
         const db = client.db()
+        // START_HIGHLIGHT
         resolve(db.collection('spaces').find({}).toArray())
+        // END_HIGHLIGHT
       }))
 

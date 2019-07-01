@@ -8,7 +8,7 @@ export const add = space =>
       .then(client => {
         const db = client.db()
         // START_HIGHLIGHT
-        db.collection('spaces').insertOne(space)
+        resolve(db.collection('spaces').insertOne(space))
         // END_HIGHLIGHT
       }))
 

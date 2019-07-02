@@ -1,7 +1,7 @@
 import * as DB from './db'
 
 describe('a space database', () => {
-  beforeEach(() => DB.clearAll())
+  beforeEach(async () => await DB.clearAll())
 
   it('retrieves persisted space', async () => {
     await DB.add({ city: 'C', address: '99' })

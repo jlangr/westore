@@ -11,7 +11,10 @@ const spaces = db => db.collection('spaces')
 
 export const add = (space) =>
   inMongoDbContext((resolve, reject, db) =>
-    resolve(spaces(db).insertOne(space)))
+    resolve(spaces(db).insertOne(space)
+// START_HIGHLIGHT
+              .then(result => result.ops[0]._id)))
+// END_HIGHLIGHT
 
 export const findAll = () =>
   inMongoDbContext((resolve, reject, db) =>

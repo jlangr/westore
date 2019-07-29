@@ -8,6 +8,8 @@ describe('a space database', () => {
 
     const spaces = await DB.findAll()
 
+    // START_HIGHLIGHT
     expect(spaces).toMatchObject([ { city: 'C', address: '99' } ])
+    // END_HIGHLIGHT
   })
 })

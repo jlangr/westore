@@ -19,6 +19,12 @@ describe('a space database', () => {
   })
 
   // START_HIGHLIGHT
+  it('returns an ID string', async () => {
+    const id1 = await DB.add(ASpace)
+
+    expect(typeof id1).toEqual('string')
+  })
+
   it('returns unique IDs', async () => {
     const id1 = await DB.add(ASpace)
     const id2 = await DB.add(AnotherSpace)

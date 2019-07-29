@@ -13,7 +13,7 @@ export const add = (space) =>
   inMongoDbContext((resolve, reject, db) =>
     resolve(spaces(db).insertOne(space)
 // START_HIGHLIGHT
-              .then(result => result.ops[0]._id)))
+              .then(result => result.ops[0]._id.toString())))
 // END_HIGHLIGHT
 
 export const findAll = () =>

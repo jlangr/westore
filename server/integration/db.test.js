@@ -1,11 +1,11 @@
-import * as DB from './db'
+import * as DB from '../routes/db'
 
 describe('a space database', () => {
   beforeEach(async () => await DB.clearAll())
 
   // START_HIGHLIGHT
-  const ASpace = { city: 'C' }
-  const AnotherSpace = { city: 'D' }
+  const ASpace = { city: 'C', address: '99' }
+  const AnotherSpace = { city: 'D', address: '100' }
   // END_HIGHLIGHT
 
   it('retrieves persisted space', async () => {

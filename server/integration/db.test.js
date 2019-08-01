@@ -1,4 +1,4 @@
-import * as DB from './db'
+import * as DB from '../routes/db'
 
 describe('a space database', () => {
   beforeEach(async () => await DB.clearAll())

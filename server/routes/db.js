@@ -2,24 +2,20 @@ import { MongoClient } from 'mongodb'
 
 const url = 'mongodb://localhost:27017/westore'
 
-const inMongoDbContext = onThen =>
-  new Promise((resolve, reject) =>
-    MongoClient.connect(url, { useNewUrlParser: true })
-      .then(client => onThen(resolve, reject, client.db())))
+export const add = async space => {
+  // START_HIGHLIGHT
+  const result = await (await spaces()).insertOne(space)
+  return result.ops[0]._id.toString()
+  // END_HIGHLIGHT
+}
 
-const spaces = db => db.collection('spaces')
+export const findAll = async () =>
+  await (await spaces()).find({}).toArray()
 
-export const add = (space) =>
-  inMongoDbContext((resolve, reject, db) =>
-    resolve(spaces(db).insertOne(space)
-// START_HIGHLIGHT
-              .then(result => result.ops[0]._id.toString())))
-// END_HIGHLIGHT
+export const clearAll = async () =>
+  await (await spaces()).deleteMany({})
 
-export const findAll = () =>
-  inMongoDbContext((resolve, reject, db) =>
-    resolve(spaces(db).find({}).toArray()))
-
-export const clearAll = () =>
-  inMongoDbContext((resolve, reject, db) =>
-    resolve(spaces(db).deleteMany({})))
+const spaces = async () => {
+  const client = await MongoClient.connect(url, {useNewUrlParser: true})
+  return client.db().collection('spacesx')
+}

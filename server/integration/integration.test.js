@@ -3,27 +3,26 @@ const axios = require('axios')
 const url = path => `http://localhost:3002${path}`
 
 describe('when posting a space', () => {
-  beforeEach(async () =>
-    await axios.get(url('/spaces/clear')))
+  let postSpaceResponse
 
-  it('returns the generated ID', async () => {
-    const response = await axios.post(url('/space'),
-      { 'city': 'X', 'street-address': 'Y' })
-
-    const json = response.data
-
-    expect(json).toEqual(1)
+  beforeEach(async () => {
+    await axios.get(url('/spaces/clear'))
+    postSpaceResponse = await axios.post(url('/space'),
+      {  'city': 'A', 'street-address': '1' })
   })
 
   it('persists at the server', async () => {
-    await axios.post(url('/space'),
-      {  'city': 'A', 'street-address': '1' })
-    const response = await axios.get(url('/spaces'))
+    const allSpaces = await axios.get(url('/spaces'))
 
-    const json = response.data
-
-    expect(json).toEqual([
-      { 'city': 'A', 'street-address': '1', 'id': 1 }
+    expect(allSpaces.data).toMatchObject([
+      {'city': 'A', 'street-address': '1'}
     ])
+  })
+
+  it('returns the assigned ID', async() => {
+    const id = postSpaceResponse.data
+    const allSpaces = await axios.get(url('/spaces'))
+
+    expect(id).toEqual(allSpaces.data[0]._id)
   })
 })

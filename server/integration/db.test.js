@@ -3,13 +3,31 @@ import * as DB from '../persistence/db'
 describe('a space database', () => {
   beforeEach(async () => await DB.clearAll())
 
+  // START_HIGHLIGHT
+  const ASpace = { city: 'C', address: '99' }
+  const AnotherSpace = { city: 'D', address: '100' }
+  // END_HIGHLIGHT
+
   it('retrieves persisted space', async () => {
-    await DB.add({ city: 'C', address: '99' })
+    await DB.add(ASpace)
 
     const spaces = await DB.findAll()
 
-    // START_HIGHLIGHT
-    expect(spaces).toMatchObject([ { city: 'C', address: '99' } ])
-    // END_HIGHLIGHT
+    expect(spaces).toMatchObject([ ASpace ])
   })
+
+  // START_HIGHLIGHT
+  it('returns an ID string', async () => {
+    const id1 = await DB.add(ASpace)
+
+    expect(typeof id1).toEqual('string')
+  })
+
+  it('returns unique IDs', async () => {
+    const id1 = await DB.add(ASpace)
+    const id2 = await DB.add(AnotherSpace)
+
+    expect(id1).not.toEqual(id2)
+  })
+  // END_HIGHLIGHT
 })

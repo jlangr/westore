@@ -13,7 +13,9 @@ export const postSpace = (request, response) => {
   return DB.add(space)
     .then(id => { response.status(200).json(id) })
     // START_HIGHLIGHT
-    .catch(_ => { response.status(500) })
+    .catch(error => {
+      response.status(500).send({ message: error.message })
+    })
     // END_HIGHLIGHT
 }
 // END:postSpace

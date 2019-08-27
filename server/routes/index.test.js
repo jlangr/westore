@@ -4,17 +4,25 @@ import * as DB from '../persistence/db.js'
 
 jest.mock('../persistence/db.js')
 
-describe('when posting spaces', () => {
+describe('given that database adds will reject', () => {
+  const ASpace = {city: 'A', address: '1'}
   let response
 
-  beforeEach(() => response = MockExpress.response())
-
-  it('answers 500 status', async () => {
+  beforeEach(() => {
+    response = MockExpress.response()
     DB.add.mockReturnValueOnce(
       Promise.reject(new Error('some error message')))
+  })
 
-    await Routes.postSpace({body: {city: 'A', address: '1'}}, response)
+  describe('when posting a space', () => {
+    beforeEach(async () =>
+      await Routes.postSpace({ body: ASpace }, response))
 
-    expect(response.status).toHaveBeenCalledWith(500)
+    it('answers 500 status', () =>
+      expect(response.status).toHaveBeenCalledWith(500))
+
+    it('provides an error message', () =>
+      expect(response.send)
+        .toHaveBeenCalledWith({ message: 'some error message' }))
   })
 })

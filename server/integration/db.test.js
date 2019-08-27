@@ -26,4 +26,25 @@ describe('a space database', () => {
 
     expect(id1).not.toEqual(id2)
   })
+
+  // START:error
+  describe('handles connection errors gracefully', () => {
+    let existingDb
+
+    beforeEach(() => {
+      existingDb = global.properties.mongoDbUrl
+      const badPort = '9999'
+      global.properties.mongoDbUrl = `mongodb://localhost:${badPort}/westore`
+    })
+
+    afterEach(() => global.properties.mongoDbUrl = existingDb)
+
+    it('handles errors', async () => {
+      await DB.add(ASpace)
+        .then(_ => fail())
+        .catch(error => expect(error).toBeInstanceOf(Error))
+    })
+  })
+  // END:error
+
 })

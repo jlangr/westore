@@ -28,7 +28,7 @@ describe('a space database', () => {
   })
 
   // START:error
-  describe('handles connection errors gracefully', () => {
+  describe('handles errors gracefully', () => {
     let existingDb
 
     beforeEach(() => {
@@ -39,7 +39,7 @@ describe('a space database', () => {
 
     afterEach(() => global.properties.mongoDbUrl = existingDb)
 
-    it('handles errors', async () => {
+    it('when unable to establish connection', async () => {
       await DB.add(ASpace)
         .then(_ => fail())
         .catch(error => expect(error).toBeInstanceOf(Error))

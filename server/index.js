@@ -5,7 +5,8 @@ import * as Routes from './routes'
 // START_HIGHLIGHT
 import PropertiesReader from 'properties-reader'
 
-global.properties = new PropertiesReader('./persistence/db.prod.properties').getAllProperties()
+global.properties =
+  new PropertiesReader('./persistence/db.prod.properties').getAllProperties()
 // END_HIGHLIGHT
 
 const app = express()

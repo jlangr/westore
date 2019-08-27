@@ -39,7 +39,7 @@ describe('a space database', () => {
 
     afterEach(() => global.properties.mongoDbUrl = existingDb)
 
-    it('when unable to establish connection', async () => {
+    it('when unable to connect', async () => {
       await DB.add(ASpace)
         .then(_ => fail())
         .catch(error => expect(error).toBeInstanceOf(Error))

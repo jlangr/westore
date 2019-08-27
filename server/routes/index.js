@@ -12,7 +12,7 @@ export const configure = app => {
 export const postSpace = (request, response) => {
   const space = request.body
 // START_HIGHLIGHT
-  DB.add(space)
+  return DB.add(space)
     .then(id => response.status(200).json(id))
 // END_HIGHLIGHT
 }

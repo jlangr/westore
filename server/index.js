@@ -1,10 +1,16 @@
+// START:properties
 import express from 'express'
 import bodyParser from 'body-parser'
-// START_HIGHLIGHT
 import * as Routes from './routes'
+// START_HIGHLIGHT
+import PropertiesReader from 'properties-reader'
+
+global.properties = new PropertiesReader('./persistence/db.prod.properties').getAllProperties()
 // END_HIGHLIGHT
 
 const app = express()
+// ...
+// END:properties
 
 const allowCORS = app => {
   app.use((req, res, next) => {
@@ -18,8 +24,6 @@ allowCORS(app)
 
 app.use(bodyParser.json())
 
-// START_HIGHLIGHT
 Routes.configure(app)
-// END_HIGHLIGHT
 
 app.listen(3002, () => console.log(`server listening`))

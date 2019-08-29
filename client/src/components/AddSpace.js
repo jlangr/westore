@@ -13,12 +13,12 @@ class AddSpace extends Component {
               stateKey='city' parent={this} />
             <FormField label='Street Address' bsClass='input-street-address'
               stateKey='streetAddress' parent={this} />
-            {/* START_HIGHLIGHT */}
+            {/* START:existing-jsx */}
             <Button bsClass='button-submit'
               onClick={() => this.props.submitFn(this.state)}>
               Add
             </Button>
-            {/* END_HIGHLIGHT */}
+            {/* END:existing-jsx */}
           </Form>
         </div>
       </code>

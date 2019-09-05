@@ -1,9 +1,11 @@
 import axios from 'axios'
 
-export const url = path => `http://localhost:3002/space${path}`
+export const url = path => `http://localhost:3002${path}`
 
 export const submit = component => {
-  const space = { city: component.city, address: component.streetAddress }
+  console.log(component)
+  const space = { city: component.state.city, address: component.state.streetAddress }
+  console.log(`submitting space `, space)
   return axios.post(url('/space'), space)
     .then(response => {
       component.setState({ currentSpaceId: response.data })

@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux'
+
 const reducer = (state={}, _) => state
 
-const reducers = combineReducers({ reducer })
+export default combineReducers({ reducer })

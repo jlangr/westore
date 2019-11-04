@@ -1,13 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, combineReducers } from 'redux'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import AddSpace from './components/AddSpace'
 import * as Actions from './actions'
-
-const reducer = (state={}, _) => state
-
-const reducers = combineReducers({ reducer })
+import reducers from './reducers'
 
 render(
   <Provider store={createStore(reducers)}>

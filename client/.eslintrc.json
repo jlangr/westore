@@ -17,8 +17,8 @@
   "rules": {
     "no-unused-vars": ["error", { "vars": "local", "args": "after-used", "argsIgnorePattern": "_" }],
     "indent": [
-      "error",
-        2
+      "error", 2,
+      { "SwitchCase":  1 }
     ],
     "linebreak-style": [
       "error",

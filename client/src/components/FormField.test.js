@@ -1,20 +1,24 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import FormField from './FormField'
+import { storeContext } from '../StoreContext'
+import * as Actions from '../actions'
 
-const changeText = (component, selector, value) => {
+jest.mock('../StoreContext.js')
+jest.mock('../actions')
+
+const changeText = (component, selector, value) =>
   component.find(selector).simulate('change', {target: {value}})
-}
 
-describe('a FormField', () => {
+describe('FormField', () => {
   describe('when entering field text', () => {
-    const parent = { setState: jest.fn() }
-    const form = mount(<div><FormField parent={parent} bsClass='input-field' stateKey='field' /></div>)
+    const dispatch = jest.fn()
+    storeContext.mockReturnValue({ state: {}, dispatch })
+    const form = mount(<FormField parent={parent} bsClass='input-field' stateKey='field' />)
 
     beforeEach(() => changeText(form, '.input-field', 'some value'))
 
-    it('updates the state with the field value', () => {
-      expect(parent.setState).toHaveBeenCalledWith({ field: 'some value' })
-    })
+    it('sets the field value', () =>
+      expect(Actions.setFieldValue).toHaveBeenCalledWith(dispatch, 'field', 'some value'))
   })
 })

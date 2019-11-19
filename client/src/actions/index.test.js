@@ -1,36 +1,62 @@
-import * as Actions from './index'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
+import * as Actions from './'
 
-describe('a space posting', () => {
+describe('posting a space via submit', () => {
   let mock
-  let component
+  let dispatch
+  const state = { fields: { city: 'X', streetAddress: 'Y' } }
 
   beforeEach(() => {
     mock = new MockAdapter(axios)
-    component = { setState: jest.fn(), state: {} }
+    dispatch = jest.fn()
   })
 
   it('updates state on success', async () => {
     mock.onPost(Actions.url('/space'))
       .reply(200, 'ID0')
-    component.state.city = 'X'
-    component.state.streetAddress = 'Y'
 
-    await Actions.submit(component)
+    await Actions.postSpace(state, dispatch)
 
-    expect(component.setState)
-      .toHaveBeenCalledWith({ currentSpaceId: 'ID0' })
+    expect(dispatch)
+      .toHaveBeenCalledWith(Actions.setCurrentSpaceId('ID0'))
   })
 
   it('updates error message on failure', async () => {
     mock.onPost(Actions.url('/space'))
       .reply(400, { message: 'invalid request' })
-    // the data structure we can learn from reading the server-side tests
 
-    await Actions.submit(component)
+    await Actions.postSpace(state, dispatch)
 
-    expect(component.setState)
-      .toHaveBeenCalledWith({ errorMessage: 'invalid request' })
+    expect(dispatch)
+      .toHaveBeenCalledWith(Actions.setErrorMessage('invalid request'))
+  })
+})
+
+describe('setting the error message for a rest call error', () => {
+  const request =  { data: 123 }
+
+  it('uses the response message', () => {
+    const error = { request, response: { data: { message: 'boo' }}}
+
+    const action = Actions.restCallError(error)
+
+    expect(action).toEqual(Actions.setErrorMessage('boo'))
+  })
+
+  it('indicates response problem if request but no response', () => {
+    const error = { request }
+
+    const action = Actions.restCallError(error)
+
+    expect(action).toEqual(Actions.setErrorMessage(Actions.ErrorRestNoResponse))
+  })
+
+  it('indicates unknown problem if no request or response', () => {
+    const error = { }
+
+    const action = Actions.restCallError(error)
+
+    expect(action).toEqual(Actions.setErrorMessage(Actions.ErrorRestUnknownProblem))
   })
 })

@@ -4,21 +4,16 @@ import { clearErrorMessage } from '../actions'
 
 import { storeContext } from '../StoreContext'
 
-// TODO test
-const visibilityClassName = state =>
-  state.errorMessage ? 'visible' : 'invisible'
-
-// TODO danger not working, always blue
-// TODO test
 const ErrorAlert = () => {
   const { state, dispatch } = storeContext()
-  return (
-    <Alert className={visibilityClassName(state)}
-      variant={'danger'}
-      onDismiss={ () => clearErrorMessage(dispatch)}>
-      {state.errorMessage}
-    </Alert>
-  )
+  if (state.errorMessage)
+    return (
+      <Alert className='alert-danger'
+        onDismiss={ () => dispatch(clearErrorMessage())}>
+        {state.errorMessage}
+      </Alert>
+    )
+  return null
 }
 
 export default ErrorAlert

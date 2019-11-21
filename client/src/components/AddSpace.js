@@ -9,20 +9,18 @@ const AddSpace = () => {
   const { state, dispatch } = storeContext()
 
   return (
-    <code language="html">
-      <div>
-        <h1>WeStore</h1>
-        <Form>
-          <FormField label='City' bsClass='input-city' stateKey='city' />
-          <FormField label='Street Address'
-            bsClass='input-street-address'
-            stateKey='streetAddress' />
-          <Button bsClass='button-submit'
-            onClick={() => Actions.postSpace(state, dispatch)}>Add</Button>
-        </Form>
-        <ErrorAlert />
-      </div>
-    </code>
+    <div>
+      <h1>WeStore</h1>
+      <Form>
+        <FormField label='Street Address'
+          bsClass='input-street-address'
+          stateKey='streetAddress' />
+        <FormField label='City' bsClass='input-city' stateKey='city' />
+        <Button bsClass='button-submit'
+          onClick={() => Actions.postSpace(state, dispatch)}>Add</Button>
+      </Form>
+      <ErrorAlert />
+    </div>
   )
 }
 export default AddSpace

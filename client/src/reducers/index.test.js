@@ -1,5 +1,5 @@
 import * as Actions from '../actions'
-import { reducer } from './'
+import { reducer, initialState } from './'
 
 // it seems silly to directly test actions that simply return a data structure
 // with a hardcoded type and payload (unless there's some involved
@@ -14,18 +14,18 @@ import { reducer } from './'
 
 describe('space reducers', () => {
   it ('returns current state when action unrecognized', () => {
-    const initialState = { init: 123 }
+    const currentState = { init: 123 }
 
-    const state = reducer(initialState, { type: 'unrecognized' })
+    const state = reducer(currentState, { type: 'unrecognized' })
 
-    expect(state).toEqual(initialState)
+    expect(state).toEqual(currentState)
   })
 
   describe('SetCurrentSpaceId', () => {
     it('updates space ID', () => {
-      const initialState = { currentSpaceId: '123', data: 0 }
+      const currentState = { currentSpaceId: '123', data: 0 }
 
-      const state = reducer(initialState, Actions.setCurrentSpaceId('999'))
+      const state = reducer(currentState, Actions.setCurrentSpaceId('999'))
 
       expect(state).toEqual({ currentSpaceId: '999', data: 0 })
     })
@@ -33,9 +33,9 @@ describe('space reducers', () => {
 
   describe('SetErrorMessage', () => {
     it('updates errorMessage', () => {
-      const initialState = { data: 0, errorMessage: undefined }
+      const currentState = { data: 0, errorMessage: undefined }
 
-      const state = reducer(initialState, Actions.setErrorMessage('bad'))
+      const state = reducer(currentState, Actions.setErrorMessage('bad'))
 
       expect(state).toEqual({ data: 0, errorMessage: 'bad' })
     })
@@ -43,19 +43,36 @@ describe('space reducers', () => {
 
   describe('SetFormField', () => {
     it('adds a field value', () => {
-      const initialState = { data: 0, fields: { a: 1 } }
+      const currentState = { data: 0, fields: { a: 1 } }
 
-      const state = reducer(initialState, Actions.setFieldValue('newKey', 42))
+      const state = reducer(currentState, Actions.setFieldValue('newKey', 42))
 
       expect(state).toEqual({ data: 0, fields: { a: 1, newKey: 42 }})
     })
 
     it('overwrites an existing field value', () => {
-      const initialState = { data: 0, fields: { a: 1, someKey: 42 } }
+      const currentState = { data: 0, fields: { a: 1, someKey: 42 } }
 
-      const state = reducer(initialState, Actions.setFieldValue('someKey', 86))
+      const state = reducer(currentState, Actions.setFieldValue('someKey', 86))
 
       expect(state).toEqual({ data: 0, fields: { a: 1, someKey: 86 }})
+    })
+  })
+
+  // TODO redundancy with setting a simple field
+  describe('current spaces', () => {
+    it('is empty by default', () => {
+      const state = reducer(initialState, { type: 'unrecognized', })
+
+      expect(state.currentSpaces).toEqual([])
+    })
+
+    it('updates currentSpaces', () => {
+      const currentState = { data: 0 }
+
+      const state = reducer(currentState, Actions.setCurrentSpaces([{ id: 'ABC' }]))
+
+      expect(state).toEqual({ data: 0, currentSpaces: [{ id: 'ABC' }] })
     })
   })
 })

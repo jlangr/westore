@@ -1,10 +1,11 @@
 export const type = {
   SetCurrentSpaceId: 'SET_CURRENT_SPACE_ID',
+  SetCurrentSpaces: 'SET_CURRENT_SPACES',
   SetErrorMessage: 'SET_ERROR_MESSAGE',
   SetFormField: 'SET_FORM_FIELD'
 }
 
-export const initialState = { fields: {} }
+export const initialState = { fields: {}, currentSpaces: [] }
 
 export const reducer = (state, action) => {
   switch(action.type) {
@@ -14,13 +15,14 @@ export const reducer = (state, action) => {
       return { ...state, fields: updatedFields }
     }
 
-    case type.SetCurrentSpaceId: {
+    case type.SetCurrentSpaceId:
       return { ...state, currentSpaceId: action.payload }
-    }
 
-    case type.SetErrorMessage: {
+    case type.SetErrorMessage:
       return { ...state, errorMessage: action.payload }
-    }
+
+    case type.SetCurrentSpaces:
+      return { ...state, currentSpaces: action.payload }
 
     default:
       return state

@@ -19,6 +19,7 @@ describe('FormField', () => {
     beforeEach(() => changeText(form, '.input-field', 'some value'))
 
     it('sets the field value', () =>
-      expect(Actions.setFieldValue).toHaveBeenCalledWith(dispatch, 'field', 'some value'))
+      expect(dispatch).toHaveBeenCalledWith(
+        Actions.setFieldValue('field', 'some value')))
   })
 })

@@ -2,34 +2,63 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import * as Actions from './'
 
-describe('posting a space via submit', () => {
+describe('actions involving rest calls', () => {
   let mock
   let dispatch
-  const state = { fields: { city: 'X', streetAddress: 'Y' } }
 
   beforeEach(() => {
     mock = new MockAdapter(axios)
     dispatch = jest.fn()
   })
 
-  it('updates state on success', async () => {
-    mock.onPost(Actions.url('/space'))
-      .reply(200, 'ID0')
+  describe('posting a space via submit', () => {
+    const state = { fields: { city: 'X', streetAddress: 'Y' } }
 
-    await Actions.postSpace(state, dispatch)
+    it('updates state on success', async () => {
+      mock.onPost(Actions.url('/space'))
+        .reply(200, 'ID0')
 
-    expect(dispatch)
-      .toHaveBeenCalledWith(Actions.setCurrentSpaceId('ID0'))
+      await Actions.postSpace(state, dispatch)
+
+      expect(dispatch)
+        .toHaveBeenCalledWith(Actions.setCurrentSpaceId('ID0'))
+    })
+
+    it('dispatches to set error on failure', async () => {
+      mock.onPost(Actions.url('/space'))
+        .reply(400, { message: 'invalid request' })
+
+      await Actions.postSpace(state, dispatch)
+
+      expect(dispatch)
+        .toHaveBeenCalledWith(Actions.setErrorMessage('invalid request'))
+    })
   })
 
-  it('updates error message on failure', async () => {
-    mock.onPost(Actions.url('/space'))
-      .reply(400, { message: 'invalid request' })
+  describe('retrieving all spaces', () => {
+    it('dispatches to update state with all spaces on success', async () => {
+      const spaces = [
+        { id: 'A1', city: 'Pueblo', streetAddress: '1 Main St.'},
+        { id: 'A3', city: 'Boise', streetAddress: '2 Elm St.'} ]
+      mock.onGet(Actions.url('/spaces'))
+        .reply(200, spaces)
 
-    await Actions.postSpace(state, dispatch)
+      await Actions.getSpaces(dispatch)
 
-    expect(dispatch)
-      .toHaveBeenCalledWith(Actions.setErrorMessage('invalid request'))
+      expect(dispatch)
+        .toHaveBeenCalledWith(Actions.setCurrentSpaces(spaces))
+    })
+
+    // DUPLICATE STUFF!
+    it('dispatches to set error on failure', async () => {
+      mock.onGet(Actions.url('/spaces'))
+        .reply(400, { message: 'invalid request' })
+
+      await Actions.getSpaces(dispatch)
+
+      expect(dispatch)
+        .toHaveBeenCalledWith(Actions.setErrorMessage('invalid request'))
+    })
   })
 })
 

@@ -1,17 +1,17 @@
 import React from 'react'
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
+import { FormControl } from 'react-bootstrap'
 import { storeContext } from '../StoreContext'
 import { setFieldValue } from '../actions'
 
 const FormField = props => {
   const { dispatch } = storeContext()
   return (
-    <FormGroup>
-      <ControlLabel>{props.label}</ControlLabel>
+    <div className='field'>
+      <label>{props.label}</label>
       <FormControl
         bsClass={props.bsClass}
-        onChange={event => setFieldValue(dispatch, props.stateKey, event.target.value)} />
-    </FormGroup>
+        onChange={event => dispatch(setFieldValue(props.stateKey, event.target.value))} />
+    </div>
   )
 }
 export default FormField

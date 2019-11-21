@@ -22,6 +22,9 @@ export const restCallError = error => {
 export const setCurrentSpaceId = id =>
   ({ type: type.SetCurrentSpaceId, payload: id})
 
+export const setCurrentSpaces = spaces =>
+  ({ type: type.SetCurrentSpaces, payload: spaces })
+
 export const setErrorMessage = message =>
   ({type: type.SetErrorMessage, payload: message})
 
@@ -33,5 +36,11 @@ export const postSpace = (state, dispatch) => {
   const space = { city: state.fields.city, address: state.fields.streetAddress }
   return axios.post(url('/space'), space)
     .then(response => dispatch(setCurrentSpaceId(response.data)))
+    .catch(error => dispatch(restCallError(error)))
+}
+
+export const getSpaces = dispatch => {
+  return axios.get(url('/spaces'))
+    .then(response => dispatch(setCurrentSpaces(response.data)))
     .catch(error => dispatch(restCallError(error)))
 }

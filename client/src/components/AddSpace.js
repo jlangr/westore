@@ -10,7 +10,6 @@ const AddSpace = () => {
 
   return (
     <div>
-      <h1>WeStore</h1>
       <Form>
         <FormField label='Street Address'
           bsClass='input-street-address'

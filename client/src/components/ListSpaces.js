@@ -16,7 +16,6 @@ const ListSpaces = () => {
   // TODO headers should be dynamic
   return (
     <div>
-      <h1>WeStore--Spaces</h1>
       <table>
         <thead><tr><td>Address</td><td>City</td></tr></thead>
         <tbody>{state.currentSpaces.map(spaceComponent)}</tbody>

@@ -1,3 +1,5 @@
+import * as Validation from '../validations/validation'
+
 export const type = {
   SetCurrentSpaceId: 'SET_CURRENT_SPACE_ID',
   SetCurrentSpaces: 'SET_CURRENT_SPACES',
@@ -26,7 +28,7 @@ export const reducer = (state, action) => {
       return { ...state, currentSpaces: action.payload }
 
     case type.ValidateSpaceFields:
-      if (!state.fields['city'] || state.fields['city'].trim().length === 0) {
+      if (!Validation.hasContent(state.fields['city'])) {
         return { ...state,
           fieldErrors: { ...state.fieldErrors, ['city']: 'Required' }
         }

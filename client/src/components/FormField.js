@@ -4,13 +4,15 @@ import { storeContext } from '../StoreContext'
 import { setFieldValue } from '../actions'
 
 const FormField = props => {
-  const { dispatch } = storeContext()
+  const { state, dispatch } = storeContext()
   return (
     <div className='field'>
       <label>{props.label}</label>
       <FormControl
         bsClass={props.bsClass}
-        onChange={event => dispatch(setFieldValue(props.stateKey, event.target.value))} />
+        onChange={ event => dispatch(setFieldValue(props.stateKey, event.target.value)) } />
+      <br />
+      <label className='errorMessage'>{state.fieldErrors[props.stateKey]}</label>
     </div>
   )
 }

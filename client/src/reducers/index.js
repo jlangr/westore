@@ -2,10 +2,11 @@ export const type = {
   SetCurrentSpaceId: 'SET_CURRENT_SPACE_ID',
   SetCurrentSpaces: 'SET_CURRENT_SPACES',
   SetErrorMessage: 'SET_ERROR_MESSAGE',
-  SetFormField: 'SET_FORM_FIELD'
+  SetFormField: 'SET_FORM_FIELD',
+  ValidateSpaceFields: 'VALIDATE_SPACES'
 }
 
-export const initialState = { fields: {}, currentSpaces: [] }
+export const initialState = { fields: {}, fieldErrors: {}, currentSpaces: [] }
 
 export const reducer = (state, action) => {
   switch(action.type) {
@@ -23,6 +24,14 @@ export const reducer = (state, action) => {
 
     case type.SetCurrentSpaces:
       return { ...state, currentSpaces: action.payload }
+
+    case type.ValidateSpaceFields:
+      if (!state.fields['city'] || state.fields['city'].trim().length === 0) {
+        return { ...state,
+          fieldErrors: { ...state.fieldErrors, ['city']: 'Required' }
+        }
+      }
+      return { ...state, fieldErrors: { ...state.fieldErrors, ['city']: undefined } }
 
     default:
       return state

@@ -34,3 +34,7 @@ Button {
     background: #FFF;
     color: #222;
 }
+
+.errorMessage {
+    color: red;
+}

@@ -31,6 +31,9 @@ export const setErrorMessage = message =>
 export const setFieldValue = (key, value) =>
   ({ type: type.SetFormField, payload: { [ key ]: value }})
 
+export const validateSpaceFields = () =>
+  ({ type: type.ValidateSpaceFields })
+
 export const postSpace = (state, dispatch) => {
   dispatch(clearErrorMessage())
   const space = { city: state.fields.city, address: state.fields.streetAddress }

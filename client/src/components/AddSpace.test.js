@@ -8,7 +8,7 @@ jest.mock('../actions/index.js')
 jest.mock('../StoreContext.js')
 
 describe('an AddSpace form', () => {
-  const state = {}
+  const state = { fieldErrors: [] }
   const dispatch = jest.fn()
 
   beforeEach(() => {

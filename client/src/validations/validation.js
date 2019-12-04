@@ -1,1 +1,1 @@
-export const hasContent = field => true
+export const hasContent = field => field && field.trim()

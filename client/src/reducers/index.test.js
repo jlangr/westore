@@ -59,6 +59,24 @@ describe('space reducers', () => {
     })
   })
 
+  describe('field validations', () => {
+    it('adds to field errors when city not provided', () => {
+      const currentState = { fields: { city: '' }, fieldErrors: [] }
+
+      const state = reducer(currentState, Actions.validateSpaceFields())
+
+      expect(state.fieldErrors).toEqual({ city: 'Required' })
+    })
+
+    it('does not add to field errors when city provided', () => {
+      const currentState = { fields: { city: 'x' }, fieldErrors: [] }
+
+      const state = reducer(currentState, Actions.validateSpaceFields())
+
+      expect(state.fieldErrors).toEqual({} )
+    })
+  })
+
   // TODO redundancy with setting a simple field
   describe('current spaces', () => {
     it('is empty by default', () => {

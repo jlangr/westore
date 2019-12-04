@@ -33,7 +33,7 @@ export const reducer = (state, action) => {
           fieldErrors: { ...state.fieldErrors, ['city']: 'Required' }
         }
       }
-      return { ...state, fieldErrors: { ...state.fieldErrors, ['city']: undefined } }
+      return { ...state }
 
     default:
       return state

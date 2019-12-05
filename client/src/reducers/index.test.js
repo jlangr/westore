@@ -60,8 +60,10 @@ describe('space reducers', () => {
   })
 
   describe('field validations', () => {
+    const validFields = { city: 'Laurel', address: '1000 Main' }
+
     it('adds to field errors when city not provided', () => {
-      const currentState = { fields: { city: '' }, fieldErrors: {} }
+      const currentState = { fields: { ...validFields, city: '' }, fieldErrors: {} }
 
       const state = reducer(currentState, Actions.validateSpaceFields())
 
@@ -69,23 +71,23 @@ describe('space reducers', () => {
     })
 
     it('does not add to field errors when city provided', () => {
-      const currentState = { fields: { city: 'x' }, fieldErrors: {} }
+      const currentState = { fields: validFields, fieldErrors: {} }
 
       const state = reducer(currentState, Actions.validateSpaceFields())
 
       expect(state.fieldErrors).toEqual({} )
     })
 
-    xit('adds to field errors when address not provided', () => {
-      const currentState = { fields: { address: '' }, fieldErrors: {} }
+    it('adds to field errors when address not provided', () => {
+      const currentState = { fields: { ...validFields, address: '' }, fieldErrors: {} }
 
       const state = reducer(currentState, Actions.validateSpaceFields())
 
       expect(state.fieldErrors).toEqual({ address: 'Required' })
     })
 
-    xit('does not add to field errors when address provided', () => {
-      const currentState = { fields: { address: 'x' }, fieldErrors: {} }
+    it('does not add to field errors when address provided', () => {
+      const currentState = { fields: validFields, fieldErrors: {} }
 
       const state = reducer(currentState, Actions.validateSpaceFields())
 

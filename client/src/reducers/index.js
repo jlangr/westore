@@ -10,6 +10,13 @@ export const type = {
 
 export const initialState = { fields: {}, fieldErrors: {}, currentSpaces: [] }
 
+const validateFieldHasContent = (state, fieldName) => {
+  if (Validation.hasContent(state.fields[fieldName]))
+    return state;
+
+  return { ...state, fieldErrors: { ...state.fieldErrors, [fieldName]: 'Required' } }
+}
+
 export const reducer = (state, action) => {
   switch(action.type) {
     case type.SetFormField: {
@@ -27,13 +34,12 @@ export const reducer = (state, action) => {
     case type.SetCurrentSpaces:
       return { ...state, currentSpaces: action.payload }
 
-    case type.ValidateSpaceFields:
-      if (!Validation.hasContent(state.fields['city'])) {
-        return { ...state,
-          fieldErrors: { ...state.fieldErrors, ['city']: 'Required' }
-        }
-      }
-      return { ...state }
+    case type.ValidateSpaceFields: {
+      let newState = { ...state }
+      newState = validateFieldHasContent(newState, 'city')
+      newState = validateFieldHasContent(newState, 'address')
+      return newState
+    }
 
     default:
       return state

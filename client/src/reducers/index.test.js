@@ -1,4 +1,5 @@
 import * as Actions from '../actions'
+import * as Validation from '../validations/validation'
 import { reducer, initialState } from './'
 
 // it seems silly to directly test actions that simply return a data structure
@@ -13,6 +14,8 @@ import { reducer, initialState } from './'
 // and properly consumed by the reducer
 
 describe('space reducers', () => {
+  const validFields = { city: 'Laurel', address: '1000 Main' }
+
   it ('returns current state when action unrecognized', () => {
     const currentState = { init: 123 }
 
@@ -60,7 +63,6 @@ describe('space reducers', () => {
   })
 
   describe('field validations', () => {
-    const validFields = { city: 'Laurel', address: '1000 Main' }
 
     it('adds to field errors when city not provided', () => {
       const currentState = { fields: { ...validFields, city: '' }, fieldErrors: {} }
@@ -92,6 +94,16 @@ describe('space reducers', () => {
       const state = reducer(currentState, Actions.validateSpaceFields())
 
       expect(state.fieldErrors).toEqual({} )
+    })
+  })
+
+  describe('adding field validations', () => {
+    it('sets validation functions for field', () => {
+      const currentState = { fieldValidations: { city: [] } }
+
+      const state = reducer(currentState, Actions.setValidations('city', [ Validation.hasContent ]))
+
+      expect(state.fieldValidations).toEqual({ city: [Validation.hasContent] })
     })
   })
 

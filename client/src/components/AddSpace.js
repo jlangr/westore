@@ -8,19 +8,17 @@ import ErrorAlert from './ErrorAlert'
 const AddSpace = () => {
   const { state, dispatch } = storeContext()
 
-  const validate = (dispatch) => {
-    dispatch(Actions.validateSpaceFields())
-  }
+  const validate = (dispatch) => dispatch(Actions.validateSpaceFields())
 
   return (
     <div>
       <Form>
-        <FormField label='Street Address'
-          bsClass='input-street-address'
-          stateKey='streetAddress' />
+        <FormField label='Street Address' bsClass='input-address' stateKey='address' />
         <FormField label='City' bsClass='input-city' stateKey='city' />
         <Button bsClass='button-submit'
-          onClick={() => { validate(dispatch); Actions.postSpace(state, dispatch) }}>Add</Button>
+          onClick={() => {
+            validate(dispatch);
+            Actions.postSpace(state, dispatch) }}>Add</Button>
       </Form>
       <ErrorAlert />
     </div>

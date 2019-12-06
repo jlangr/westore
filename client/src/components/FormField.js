@@ -1,10 +1,16 @@
 import React from 'react'
 import { FormControl } from 'react-bootstrap'
 import { storeContext } from '../StoreContext'
-import { setFieldValue } from '../actions'
+import { setValidations, setFieldValue } from '../actions'
+import * as Validation from '../validations/validation'
 
 const FormField = props => {
   const { state, dispatch } = storeContext()
+
+  // DO once
+  if (props.required)
+    dispatch(setValidations(props.stateKey, [Validation.hasContent]))
+
   return (
     <div className='field'>
       <label>{props.label}</label>

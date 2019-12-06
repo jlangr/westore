@@ -12,7 +12,7 @@ describe('actions involving rest calls', () => {
   })
 
   describe('posting a space via submit', () => {
-    const state = { fields: { city: 'X', streetAddress: 'Y' } }
+    const state = { fields: { city: 'X', address: 'Y' } }
 
     it('updates state on success', async () => {
       mock.onPost(Actions.url('/space'))
@@ -38,8 +38,8 @@ describe('actions involving rest calls', () => {
   describe('retrieving all spaces', () => {
     it('dispatches to update state with all spaces on success', async () => {
       const spaces = [
-        { id: 'A1', city: 'Pueblo', streetAddress: '1 Main St.'},
-        { id: 'A3', city: 'Boise', streetAddress: '2 Elm St.'} ]
+        { id: 'A1', city: 'Pueblo', address: '1 Main St.'},
+        { id: 'A3', city: 'Boise', address: '2 Elm St.'} ]
       mock.onGet(Actions.url('/spaces'))
         .reply(200, spaces)
 

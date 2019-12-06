@@ -5,20 +5,26 @@ export const type = {
   SetCurrentSpaces: 'SET_CURRENT_SPACES',
   SetErrorMessage: 'SET_ERROR_MESSAGE',
   SetFormField: 'SET_FORM_FIELD',
+  SetValidations: 'SET_VALIDATIONS',
   ValidateSpaceFields: 'VALIDATE_SPACES'
 }
 
-export const initialState = { fields: {}, fieldErrors: {}, currentSpaces: [] }
+export const initialState = { fields: {}, fieldErrors: {}, fieldValidations: [], currentSpaces: [] }
 
 const validateFieldHasContent = (state, fieldName) => {
   if (Validation.hasContent(state.fields[fieldName]))
-    return state;
+    return state
 
   return { ...state, fieldErrors: { ...state.fieldErrors, [fieldName]: 'Required' } }
 }
 
 export const reducer = (state, action) => {
   switch(action.type) {
+    case type.SetValidations: {
+      const { field, validationFns } = action.payload
+      return { ...state, fieldValidations: { ...state.fieldValidations, [field]: validationFns } }
+    }
+
     case type.SetFormField: {
       const fieldKeyAndValue = action.payload
       const updatedFields = Object.assign(state.fields, fieldKeyAndValue)

@@ -13,6 +13,20 @@ export const url = path => `http://localhost:3002${path}`
 
 export const clearErrorMessage = () => setErrorMessage('')
 
+export const getSpaces = dispatch => {
+  return axios.get(url('/spaces'))
+    .then(response => dispatch(setCurrentSpaces(response.data)))
+    .catch(error => dispatch(restCallError(error)))
+}
+
+export const postSpace = (state, dispatch) => {
+  dispatch(clearErrorMessage())
+  const space = { city: state.fields.city, address: state.fields.address }
+  return axios.post(url('/space'), space)
+    .then(response => dispatch(setCurrentSpaceId(response.data)))
+    .catch(error => dispatch(restCallError(error)))
+}
+
 export const restCallError = error => {
   if (error.response) return setErrorMessage(error.response.data.message)
   if (error.request) return setErrorMessage(ErrorRestNoResponse)
@@ -31,19 +45,8 @@ export const setErrorMessage = message =>
 export const setFieldValue = (key, value) =>
   ({ type: type.SetFormField, payload: { [ key ]: value }})
 
+export const setValidations = (field, validationFns) =>
+  ({type: type.SetValidations, payload: { field, validationFns }})
+
 export const validateSpaceFields = () =>
   ({ type: type.ValidateSpaceFields })
-
-export const postSpace = (state, dispatch) => {
-  dispatch(clearErrorMessage())
-  const space = { city: state.fields.city, address: state.fields.streetAddress }
-  return axios.post(url('/space'), space)
-    .then(response => dispatch(setCurrentSpaceId(response.data)))
-    .catch(error => dispatch(restCallError(error)))
-}
-
-export const getSpaces = dispatch => {
-  return axios.get(url('/spaces'))
-    .then(response => dispatch(setCurrentSpaces(response.data)))
-    .catch(error => dispatch(restCallError(error)))
-}

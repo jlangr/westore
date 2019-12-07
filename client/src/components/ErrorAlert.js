@@ -1,15 +1,14 @@
-import React from 'react'
+import * as React from 'react'
 import { Alert } from 'react-bootstrap'
 import { clearErrorMessage } from '../actions'
-
-import { storeContext } from '../StoreContext'
+import { Store } from '../Store'
 
 const ErrorAlert = () => {
-  const { state, dispatch } = storeContext()
+  const { state, dispatch } = React.useContext(Store)
   if (state.errorMessage)
     return (
       <Alert className='alert-danger'
-        onDismiss={ () => dispatch(clearErrorMessage())}>
+        onDismiss={ () => dispatch(clearErrorMessage()) }>
         {state.errorMessage}
       </Alert>
     )

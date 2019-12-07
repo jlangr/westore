@@ -1,18 +1,23 @@
-import React from 'react'
+import * as React from 'react'
 import ErrorAlert from './ErrorAlert'
-import {storeContext} from '../StoreContext'
 import {reducer, initialState} from '../reducers'
 import {shallow} from 'enzyme'
 import * as Actions from '../actions'
-
-jest.mock('../StoreContext.js')
+import ReactContextMock from './ReactContextMock'
 
 describe('ErrorAlert', () => {
   const dispatch = jest.fn()
+  let mockContext
+
+  beforeEach(() =>  {
+    mockContext = new ReactContextMock()
+  })
+
+  afterEach(() => mockContext.reset())
 
   it('includes error message from state', () => {
     const state = reducer(initialState, Actions.setErrorMessage('bad stuff'))
-    storeContext.mockReturnValue({ state, dispatch })
+    mockContext.returnValue( { state, dispatch })
 
     const component = shallow(<ErrorAlert/>)
 
@@ -20,7 +25,7 @@ describe('ErrorAlert', () => {
   })
 
   it('renders nothing if no error message', () => {
-    storeContext.mockReturnValue({ state: initialState, dispatch })
+    mockContext.returnValue({ state: initialState, dispatch })
 
     const component = shallow(<ErrorAlert/>)
 

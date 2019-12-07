@@ -1,12 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { storeContext } from '../StoreContext'
 import * as Actions from '../actions'
 import FormField from './FormField'
 import ErrorAlert from './ErrorAlert'
+import { Store } from '../Store'
 
 const AddSpace = () => {
-  const { state, dispatch } = storeContext()
+  const { state, dispatch } = React.useContext(Store)
 
   const validate = (dispatch) => dispatch(Actions.validateSpaceFields())
 

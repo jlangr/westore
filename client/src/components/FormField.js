@@ -1,11 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 import { FormControl } from 'react-bootstrap'
-import { storeContext } from '../StoreContext'
 import { setValidations, setFieldValue } from '../actions'
 import * as Validation from '../validations/validation'
 
+import { Store } from '../Store'
+
 const FormField = props => {
-  const { state, dispatch } = storeContext()
+  const { state, dispatch } = React.useContext(Store)
 
   // DO once
   if (props.required)

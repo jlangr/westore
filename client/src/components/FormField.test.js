@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mount } from 'enzyme'
+import {mount} from 'enzyme'
 import FormField from './FormField'
 import ReactContextMock from './ReactContextMock'
 import * as Actions from '../actions'
@@ -9,6 +9,9 @@ jest.mock('../actions')
 
 const changeText = (component, selector, value) =>
   component.find(selector).simulate('change', {target: {value}})
+
+const focus = (component, selector) =>
+  component.find(selector).prop('onFocus')()
 
 describe('FormField', () => {
   const dispatch = jest.fn()
@@ -30,17 +33,31 @@ describe('FormField', () => {
         Actions.setFieldValue('field', 'some value')))
   })
 
-  describe('validations', () => {
+  describe('validation of component with `required` validation', () => {
+    let wrapper
+    let dispatch
+
     beforeEach(() => {
+      dispatch = jest.fn()
       mockContext.returnValue({ state: { fieldErrors: [] }, dispatch })
-      mount(<FormField bsClass='input-field' stateKey='someField' required />)
+      wrapper = mount(<FormField bsClass='input-field' stateKey='someField' required />)
     })
 
-    describe('hasContent', () => {
-      it('adds required validation to state', () => {
+    it('adds hasContent validation to state', () => {
+      expect(dispatch).toHaveBeenCalledWith(
+        Actions.setValidations('someField', [ Validation.hasContent ])
+      )
+    })
+
+    // https://github.com/airbnb/enzyme/issues/1134
+    describe('on focus', () => {
+      beforeEach(() => jest.clearAllMocks())
+
+      it('clears the field error', () => {
+        focus(wrapper, '.input-field')
+
         expect(dispatch).toHaveBeenCalledWith(
-          Actions.setValidations('someField', [ Validation.hasContent ])
-        )
+          Actions.setValidations('input-field'))
       })
     })
   })

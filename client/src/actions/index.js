@@ -13,6 +13,9 @@ export const url = path => `http://localhost:3002${path}`
 
 export const clearErrorMessage = () => setErrorMessage('')
 
+export const clearFieldError = fieldName =>
+  ({ type: type.ClearFieldError, payload: fieldName })
+
 export const getSpaces = dispatch => {
   return axios.get(url('/spaces'))
     .then(response => dispatch(setCurrentSpaces(response.data)))

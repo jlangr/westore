@@ -1,6 +1,7 @@
 import * as Validation from '../validations/validation'
 
 export const type = {
+  ClearFieldError: 'CLEAR_FIELD_ERROR',
   SetCurrentSpaceId: 'SET_CURRENT_SPACE_ID',
   SetCurrentSpaces: 'SET_CURRENT_SPACES',
   SetErrorMessage: 'SET_ERROR_MESSAGE',
@@ -20,6 +21,12 @@ const validateFieldHasContent = (state, fieldName) => {
 
 export const reducer = (state, action) => {
   switch(action.type) {
+    case type.ClearFieldError: {
+      const fieldNameForWhichToRemoveErrors = action.payload
+      const { [fieldNameForWhichToRemoveErrors]:_, ...restOfErrors } = state.fieldErrors
+      return { ...state, fieldErrors: restOfErrors }
+    }
+
     case type.SetValidations: {
       const { field, validationFns } = action.payload
       return { ...state, fieldValidations: { ...state.fieldValidations, [field]: validationFns } }
@@ -44,6 +51,7 @@ export const reducer = (state, action) => {
       let newState = { ...state }
       newState = validateFieldHasContent(newState, 'city')
       newState = validateFieldHasContent(newState, 'address')
+      // console.log('->', newState)
       return newState
     }
 

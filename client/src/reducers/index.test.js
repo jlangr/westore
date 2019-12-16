@@ -95,6 +95,14 @@ describe('space reducers', () => {
 
       expect(state.fieldErrors).toEqual({} )
     })
+
+    it('accumulates multiple field errors', () => {
+      const currentState = { fields: { ...validFields, address: '', city: '' }, fieldErrors: {} }
+
+      const state = reducer(currentState, Actions.validateSpaceFields())
+
+      expect(state.fieldErrors).toEqual({ address: 'Required', city: 'Required' })
+    })
   })
 
   describe('adding field validations', () => {
@@ -105,6 +113,14 @@ describe('space reducers', () => {
 
       expect(state.fieldValidations).toEqual({ city: [Validation.hasContent] })
     })
+  })
+
+  describe('clearing field errors', () => {
+    const currentState = { ...initialState, fieldErrors: { city: [ 'Required' ], address: [ 'Required'] }}
+
+    const state = reducer(currentState, Actions.clearFieldError('city'))
+
+    expect(state.fieldErrors).toEqual({ address: [ 'Required'] })
   })
 
   // TODO redundancy with setting a simple field

@@ -17,7 +17,7 @@ const AddSpace = () => {
         <FormField label='City' bsClass='input-city' stateKey='city' />
         <Button bsClass='button-submit'
           onClick={() => {
-            validate(dispatch);
+            validate(dispatch)
             Actions.postSpace(state, dispatch) }}>Add</Button>
       </Form>
       <ErrorAlert />

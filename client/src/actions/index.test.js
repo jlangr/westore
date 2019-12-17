@@ -12,7 +12,7 @@ describe('actions involving rest calls', () => {
   })
 
   describe('posting a space via submit', () => {
-    const state = { fields: { city: 'X', address: 'Y' } }
+    const state = { fields: { city: { value: 'X' }, address: { value: 'Y' } } }
 
     it('updates state on success', async () => {
       mock.onPost(Actions.url('/space'))

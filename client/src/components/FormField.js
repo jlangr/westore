@@ -19,7 +19,7 @@ const FormField = props => {
       <FormControl
         bsClass={props.bsClass}
         onFocus={ _ => dispatch(clearFieldError(props.stateKey)) }
-        onChange={ event => dispatch(setFieldValue(props.stateKey, event.target.value)) } />
+        onChange={ event => dispatch(setFieldValue({ field: props.stateKey, value: event.target.value })) } />
       <br />
       <label className='errorMessage'>{state.fieldErrors[props.stateKey]}</label>
     </div>

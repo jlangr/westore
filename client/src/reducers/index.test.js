@@ -14,7 +14,7 @@ import { reducer, initialState } from './'
 // and properly consumed by the reducer
 
 describe('space reducers', () => {
-  const validFields = { city: 'Laurel', address: '1000 Main' }
+  const validFields = { city: { value: 'Laurel' }, address: { value: '1000 Main' } }
 
   it ('returns current state when action unrecognized', () => {
     const currentState = { init: 123 }
@@ -46,26 +46,25 @@ describe('space reducers', () => {
 
   describe('SetFormField', () => {
     it('adds a field value', () => {
-      const currentState = { data: 0, fields: { a: 1 } }
+      const currentState = { data: 0, fields: { a: { value: 1 } } }
 
       const state = reducer(currentState, Actions.setFieldValue('newKey', 42))
 
-      expect(state).toEqual({ data: 0, fields: { a: 1, newKey: 42 }})
+      expect(state).toEqual({ data: 0, fields: { a: { value: 1 }, newKey: { value: 42 } }})
     })
 
     it('overwrites an existing field value', () => {
-      const currentState = { data: 0, fields: { a: 1, someKey: 42 } }
+      const currentState = { data: 0, fields: { a: { value: 1 }, someKey: { value: 42 } } }
 
       const state = reducer(currentState, Actions.setFieldValue('someKey', 86))
 
-      expect(state).toEqual({ data: 0, fields: { a: 1, someKey: 86 }})
+      expect(state).toEqual({ data: 0, fields: { a: { value: 1 }, someKey: { value: 86 } } })
     })
   })
 
   describe('field validations', () => {
-
     it('adds to field errors when city not provided', () => {
-      const currentState = { fields: { ...validFields, city: '' }, fieldErrors: {} }
+      const currentState = { fields: { ...validFields, city: { value: '' } }, fieldErrors: {} }
 
       const state = reducer(currentState, Actions.validateSpaceFields())
 

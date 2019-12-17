@@ -13,7 +13,9 @@ export const type = {
 export const initialState = { fields: {}, fieldErrors: {}, fieldValidations: [], currentSpaces: [] }
 
 const validateFieldHasContent = (state, fieldName) => {
-  if (Validation.hasContent(state.fields[fieldName]))
+  console.log('state: ', state)
+  console.log('fieldName: ', fieldName)
+  if (Validation.hasContent(state.fields[fieldName].value))
     return state
 
   return { ...state, fieldErrors: { ...state.fieldErrors, [fieldName]: 'Required' } }
@@ -33,9 +35,8 @@ export const reducer = (state, action) => {
     }
 
     case type.SetFormField: {
-      const fieldKeyAndValue = action.payload
-      const updatedFields = Object.assign(state.fields, fieldKeyAndValue)
-      return { ...state, fields: updatedFields }
+      const { field, value } = action.payload
+      return { ...state, fields: {...state.fields, [field]: { value }} }
     }
 
     case type.SetCurrentSpaceId:
@@ -51,7 +52,6 @@ export const reducer = (state, action) => {
       let newState = { ...state }
       newState = validateFieldHasContent(newState, 'city')
       newState = validateFieldHasContent(newState, 'address')
-      // console.log('->', newState)
       return newState
     }
 

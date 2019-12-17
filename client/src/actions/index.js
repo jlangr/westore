@@ -22,9 +22,10 @@ export const getSpaces = dispatch => {
     .catch(error => dispatch(restCallError(error)))
 }
 
+// Fix test! .value
 export const postSpace = (state, dispatch) => {
   dispatch(clearErrorMessage())
-  const space = { city: state.fields.city, address: state.fields.address }
+  const space = { city: state.fields.city.value, address: state.fields.address.value }
   return axios.post(url('/space'), space)
     .then(response => dispatch(setCurrentSpaceId(response.data)))
     .catch(error => dispatch(restCallError(error)))
@@ -36,20 +37,15 @@ export const restCallError = error => {
   return setErrorMessage(ErrorRestUnknownProblem)
 }
 
-export const setCurrentSpaceId = id =>
-  ({ type: type.SetCurrentSpaceId, payload: id})
+export const setCurrentSpaceId = id => ({ type: type.SetCurrentSpaceId, payload: id})
 
-export const setCurrentSpaces = spaces =>
-  ({ type: type.SetCurrentSpaces, payload: spaces })
+export const setCurrentSpaces = spaces => ({ type: type.SetCurrentSpaces, payload: spaces })
 
-export const setErrorMessage = message =>
-  ({type: type.SetErrorMessage, payload: message})
+export const setErrorMessage = message => ({type: type.SetErrorMessage, payload: message})
 
-export const setFieldValue = (key, value) =>
-  ({ type: type.SetFormField, payload: { [ key ]: value }})
+export const setFieldValue = (field, value) => ({ type: type.SetFormField, payload: { field, value }})
 
-export const setValidations = (field, validationFns) =>
-  ({type: type.SetValidations, payload: { field, validationFns }})
+export const setValidations = (field, validationFns) => ({type: type.SetValidations, payload: { field, validationFns }})
 
-export const validateSpaceFields = () =>
-  ({ type: type.ValidateSpaceFields })
+export const validateSpaceFields = () => ({ type: type.ValidateSpaceFields })
+

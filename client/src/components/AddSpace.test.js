@@ -22,6 +22,6 @@ describe('an AddSpace form', () => {
 
     component.find('.button-submit').simulate('click')
 
-    expect(Actions.postSpace).toHaveBeenCalledWith(state, dispatch)
+    expect(Actions.addSpaceIfValid).toHaveBeenCalledWith(state, dispatch)
   })
 })

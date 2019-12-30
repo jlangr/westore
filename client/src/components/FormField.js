@@ -8,10 +8,10 @@ import { Store } from '../Store'
 const FormField = props => {
   const { state, dispatch } = React.useContext(Store)
 
-  // DO once
-  if (props.required)
-    dispatch(setValidations(props.stateKey, [Validation.hasContent]))
-  // React.useEffect(() => { Actions.getSpaces(dispatch) }, [dispatch])
+  React.useEffect(() => {
+    if (props.required)
+      dispatch(setValidations(props.stateKey, [Validation.hasContent]))
+  }, [dispatch]) // ? right thing to trigger on?
 
   return (
     <div className='field'>
@@ -19,7 +19,7 @@ const FormField = props => {
       <FormControl
         bsClass={props.bsClass}
         onFocus={ _ => dispatch(clearFieldError(props.stateKey)) }
-        onChange={ event => dispatch(setFieldValue({ field: props.stateKey, value: event.target.value })) } />
+        onChange={ event => dispatch(setFieldValue(props.stateKey, event.target.value)) } />
       <br />
       <label className='errorMessage'>{state.fieldErrors[props.stateKey]}</label>
     </div>

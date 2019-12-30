@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { type } from '../reducers'
+import * as Validation from '../validations/validation'
 
 export const ErrorRestUnknownProblem = 'unknown error'
 export const ErrorRestNoResponse = 'no response from server'
@@ -13,13 +14,21 @@ export const url = path => `http://localhost:3002${path}`
 
 export const clearErrorMessage = () => setErrorMessage('')
 
-export const clearFieldError = fieldName =>
-  ({ type: type.ClearFieldError, payload: fieldName })
+export const clearFieldError = fieldName => ({ type: type.ClearFieldError, payload: fieldName })
 
 export const getSpaces = dispatch => {
   return axios.get(url('/spaces'))
     .then(response => dispatch(setCurrentSpaces(response.data)))
     .catch(error => dispatch(restCallError(error)))
+}
+
+
+export const addSpaceIfValid = (state, dispatch) => {
+  const errors = Validation.collectErrors(state)
+  if (Validation.hasErrors(errors))
+    dispatch(setErrors(errors))
+  else
+    postSpace(state, dispatch)
 }
 
 // Fix test! .value
@@ -42,6 +51,8 @@ export const setCurrentSpaceId = id => ({ type: type.SetCurrentSpaceId, payload:
 export const setCurrentSpaces = spaces => ({ type: type.SetCurrentSpaces, payload: spaces })
 
 export const setErrorMessage = message => ({type: type.SetErrorMessage, payload: message})
+
+export const setErrors = errors => ({type: type.SetErrors, payload: errors })
 
 export const setFieldValue = (field, value) => ({ type: type.SetFormField, payload: { field, value }})
 

@@ -8,17 +8,14 @@ import { Store } from '../Store'
 const AddSpace = () => {
   const { state, dispatch } = React.useContext(Store)
 
-  const validate = (dispatch) => dispatch(Actions.validateSpaceFields())
-
   return (
     <div>
       <Form>
-        <FormField label='Street Address' bsClass='input-address' stateKey='address' />
-        <FormField label='City' bsClass='input-city' stateKey='city' />
+        <FormField label='Street Address' bsClass='input-address' stateKey='address' required />
+        <FormField label='City' bsClass='input-city' stateKey='city' required />
+        <FormField label='ZIP Code' bsClass='input-zip-code' stateKey='zipCode' required/>
         <Button bsClass='button-submit'
-          onClick={() => {
-            validate(dispatch)
-            Actions.postSpace(state, dispatch) }}>Add</Button>
+          onClick={() => Actions.addSpaceIfValid(state, dispatch) }>Add</Button>
       </Form>
       <ErrorAlert />
     </div>

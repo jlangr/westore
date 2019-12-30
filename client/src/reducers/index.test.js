@@ -62,48 +62,6 @@ describe('space reducers', () => {
     })
   })
 
-  describe('field validations', () => {
-    it('adds to field errors when city not provided', () => {
-      const currentState = { fields: { ...validFields, city: { value: '' } }, fieldErrors: {} }
-
-      const state = reducer(currentState, Actions.validateSpaceFields())
-
-      expect(state.fieldErrors).toEqual({ city: 'Required' })
-    })
-
-    it('does not add to field errors when city provided', () => {
-      const currentState = { fields: validFields, fieldErrors: {} }
-
-      const state = reducer(currentState, Actions.validateSpaceFields())
-
-      expect(state.fieldErrors).toEqual({} )
-    })
-
-    it('adds to field errors when address not provided', () => {
-      const currentState = { fields: { ...validFields, address: '' }, fieldErrors: {} }
-
-      const state = reducer(currentState, Actions.validateSpaceFields())
-
-      expect(state.fieldErrors).toEqual({ address: 'Required' })
-    })
-
-    it('does not add to field errors when address provided', () => {
-      const currentState = { fields: validFields, fieldErrors: {} }
-
-      const state = reducer(currentState, Actions.validateSpaceFields())
-
-      expect(state.fieldErrors).toEqual({} )
-    })
-
-    it('accumulates multiple field errors', () => {
-      const currentState = { fields: { ...validFields, address: '', city: '' }, fieldErrors: {} }
-
-      const state = reducer(currentState, Actions.validateSpaceFields())
-
-      expect(state.fieldErrors).toEqual({ address: 'Required', city: 'Required' })
-    })
-  })
-
   describe('adding field validations', () => {
     it('sets validation functions for field', () => {
       const currentState = { fieldValidations: { city: [] } }

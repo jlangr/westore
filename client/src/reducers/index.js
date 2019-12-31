@@ -1,4 +1,5 @@
 export const type = {
+  AddValidation: 'ADD_VALIDATION',
   ClearFieldError: 'CLEAR_FIELD_ERROR',
   SetCurrentSpaceId: 'SET_CURRENT_SPACE_ID',
   SetCurrentSpaces: 'SET_CURRENT_SPACES',
@@ -13,6 +14,12 @@ export const initialState = { fields: {}, fieldErrors: {}, fieldValidations: [],
 
 export const reducer = (state, action) => {
   switch(action.type) {
+    case type.AddValidation: {
+      const { fieldName, ...validation } = action.payload
+      const newValidationsForField = [ ...state.fieldValidations[fieldName], validation ]
+      return {...state, fieldValidations: {...state.fieldValidations, [fieldName]: newValidationsForField}}
+    }
+
     case type.ClearFieldError: {
       const fieldNameForWhichToRemoveErrors = action.payload
       const { [fieldNameForWhichToRemoveErrors]:_, ...restOfErrors } = state.fieldErrors

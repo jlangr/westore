@@ -46,6 +46,9 @@ export const restCallError = error => {
   return setErrorMessage(ErrorRestUnknownProblem)
 }
 
+export const addValidation = (fieldName, predicate, messageFn, arg) =>
+  ({type: type.AddValidation, payload: { fieldName, predicate, messageFn, arg}})
+
 export const setCurrentSpaceId = id => ({ type: type.SetCurrentSpaceId, payload: id})
 
 export const setCurrentSpaces = spaces => ({ type: type.SetCurrentSpaces, payload: spaces })

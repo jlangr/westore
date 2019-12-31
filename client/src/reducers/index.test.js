@@ -70,6 +70,18 @@ describe('space reducers', () => {
 
       expect(state.fieldValidations).toEqual({ city: [Validation.hasContent] })
     })
+
+    it('adds a single validation for field', () => {
+      const messageFn = arg => `not good ${arg}`
+      const existingValidation = { predicate: Validation.maxLen, messageFn, arg: 10 }
+      const currentState = { fieldValidations: { city: [existingValidation] } }
+
+      const state = reducer(currentState, Actions.addValidation('city', Validation.minLen, messageFn, 5))
+
+      expect(state.fieldValidations).toEqual(
+        { city:
+            [ existingValidation, { predicate: Validation.minLen, messageFn, arg: 5 } ] })
+    })
   })
 
   describe('clearing field errors', () => {

@@ -8,7 +8,7 @@ const FormField = props => {
   const {state, dispatch} = React.useContext(Store)
 
   // TODO move logic to validation and test
-  React.useEffect(() => addValidations(dispatch, props), [])
+  React.useEffect(() => addValidations(dispatch, props), [dispatch])
 
   return (
     <div className='field'>

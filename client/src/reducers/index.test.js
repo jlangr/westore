@@ -15,7 +15,7 @@ import { reducer, initialState } from './'
 // and properly consumed by the reducer
 
 describe('space reducers', () => {
-  it ('returns current state when action unrecognized', () => {
+  it('returns current state when action unrecognized', () => {
     const currentState = { init: 123 }
 
     const state = reducer(currentState, { type: 'unrecognized' })
@@ -62,15 +62,6 @@ describe('space reducers', () => {
   })
 
   describe('adding field validations', () => {
-    // TODO wrong
-    xit('sets validation functions for field', () => {
-      const currentState = { fieldValidations: { city: [] } }
-
-      const state = reducer(currentState, Actions.setValidations('city', [ Validation.hasContent ]))
-
-      expect(state.fieldValidations).toEqual({ city: [Validations.hasContent] })
-    })
-
     it('adds validation for field', () => {
       const validation = Validations.validation('maxLen')
 

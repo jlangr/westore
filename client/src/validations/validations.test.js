@@ -1,6 +1,6 @@
 import {
   collectValidations,
-  hasContent, isAlpha, isValidZip, maxLen, minLen,
+  hasContent, isAlpha, isNumeric, isValidZip, maxLen, minLen,
   validation, validationWithArg
 } from './validations'
 
@@ -98,4 +98,12 @@ describe('isAlpha', () => {
 
   it('is invalid when containing non-alphabetic/non-space characters', () =>
     expect(isAlpha('Abc123')).toBeFalsy())
+})
+
+describe('isNumeric', () => {
+  it('is valid when only contains numbers', () =>
+    expect(isNumeric('12345')).toBeTruthy())
+
+  it('is invalid when containing non-numbers', () =>
+    expect(isNumeric('asdf')).toBeFalsy())
 })

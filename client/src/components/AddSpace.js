@@ -13,7 +13,7 @@ const AddSpace = () => {
       <Form>
         <FormField label='Street Address' bsClass='input-address' stateKey='address' required />
         <FormField label='City' bsClass='input-city' stateKey='city' required />
-        <FormField label='ZIP Code' bsClass='input-zip-code' stateKey='zipCode' required/>
+        <FormField label='ZIP Code' bsClass='input-zip-code' stateKey='zipCode' required isValidZip />
         <Button bsClass='button-submit'
           onClick={() => Actions.addSpaceIfValid(state, dispatch) }>Add</Button>
       </Form>

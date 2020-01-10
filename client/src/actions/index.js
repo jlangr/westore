@@ -51,12 +51,11 @@ export const addValidation = (fieldName, validation) =>
   ({type: type.AddValidation, payload: { fieldName, validation }})
 
 // TODO push to reducer
-export const addValidations = (dispatch, objectOfPossibleValidationNames) => {
+export const addValidations = (dispatch, objectOfPossibleValidationNames) =>
   Object.keys(objectOfPossibleValidationNames)
     .filter(Validations.isValidation)
     .forEach(key =>
       dispatch(addValidation(objectOfPossibleValidationNames.stateKey, Validations.validation(key))))
-}
 
 export const setCurrentSpaceId = id => ({ type: type.SetCurrentSpaceId, payload: id})
 
@@ -67,8 +66,3 @@ export const setErrorMessage = message => ({type: type.SetErrorMessage, payload:
 export const setErrors = errors => ({type: type.SetErrors, payload: errors })
 
 export const setFieldValue = (field, value) => ({ type: type.SetFormField, payload: { field, value }})
-
-export const setValidations = (field, validationFns) => ({type: type.SetValidations, payload: { field, validationFns }})
-
-export const validateSpaceFields = () => ({ type: type.ValidateSpaceFields })
-

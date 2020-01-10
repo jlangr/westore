@@ -6,7 +6,6 @@ export const type = {
   SetErrorMessage: 'SET_ERROR_MESSAGE',
   SetErrors: 'SET_ERRORS',
   SetFormField: 'SET_FORM_FIELD',
-  SetValidations: 'SET_VALIDATIONS',
   ValidateSpaceFields: 'VALIDATE_SPACES'
 }
 
@@ -16,7 +15,9 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case type.AddValidation: {
       const {fieldName, validation} = action.payload
-      return { ...state,
+
+      return {
+        ...state,
         fieldValidations: {
           ...state.fieldValidations,
           [fieldName]: [...(state.fieldValidations[fieldName] || []), validation]
@@ -28,11 +29,6 @@ export const reducer = (state, action) => {
       const fieldNameForWhichToRemoveErrors = action.payload
       const {[fieldNameForWhichToRemoveErrors]: _, ...restOfErrors} = state.fieldErrors
       return {...state, fieldErrors: restOfErrors}
-    }
-
-    case type.SetValidations: {
-      const {field, validationFns} = action.payload
-      return {...state, fieldValidations: {...state.fieldValidations, [field]: validationFns}}
     }
 
     case type.SetFormField: {

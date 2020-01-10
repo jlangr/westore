@@ -10,13 +10,19 @@ export const maxLen = (maxLength, field) => field.length <= maxLength
 
 export const isAlpha = field => field.split('').every(isLetterOrSpace)
 
+export const isNumeric = field => field.split('').every(isDigit)
+
 const isLetterOrSpace = c => isLetter(c) || /\s/.test(c)
 
 const isLetter = c => c.toLowerCase() !== c.toUpperCase()
 
+const isDigit = c => /\d/.test(c)
+
 const validations = {
   required: { predicate: hasContent, message: () => 'Required' },
   isAlpha: { predicate: isAlpha, message: () => 'Must only contain alphabetic characters' },
+  isNumeric: { predicate: isNumeric, message: () => 'Must only contain numbers' }, // weak, do regex
+  isValidZip: { predicate: isValidZip, message: () => 'Must match valid zip code ##### or #####-####' },
   maxLen: { predicate: maxLen, message: arg => `Max length of ${arg} exceeded` },
   minLen: { predicate: minLen, message: arg => `Min length of ${arg} not met` }
 }

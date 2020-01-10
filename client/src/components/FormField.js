@@ -1,28 +1,24 @@
 import * as React from 'react'
-import { FormControl } from 'react-bootstrap'
-import { clearFieldError, setValidations, setFieldValue } from '../actions'
-import * as Validation from '../validations/validation'
+import {FormControl} from 'react-bootstrap'
+import {addValidations, clearFieldError, setFieldValue} from '../actions'
 
-import { Store } from '../Store'
+import {Store} from '../Store'
 
 const FormField = props => {
-  const { state, dispatch } = React.useContext(Store)
+  const {state, dispatch} = React.useContext(Store)
 
-  React.useEffect(() => {
-    if (props.required)
-      dispatch(setValidations(props.stateKey, [Validation.hasContent]))
-  }, [dispatch]) // ? right thing to trigger on?
+  // TODO move logic to validation and test
+  React.useEffect(() => addValidations(dispatch, props), [])
 
   return (
     <div className='field'>
       <label>{props.label}</label>
       <FormControl
         bsClass={props.bsClass}
-        onFocus={ _ => dispatch(clearFieldError(props.stateKey)) }
-        onChange={ event => dispatch(setFieldValue(props.stateKey, event.target.value)) } />
-      <br />
+        onFocus={_ => dispatch(clearFieldError(props.stateKey))}
+        onChange={event => dispatch(setFieldValue(props.stateKey, event.target.value))}/>
+      <br/>
       <label className='errorMessage'>{state.fieldErrors[props.stateKey]}</label>
-    </div>
-  )
+    </div>)
 }
 export default FormField

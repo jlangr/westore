@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { type } from '../reducers'
 import * as Validation from '../validations/validation'
+import * as Validations from '../validations/validations'
 
 export const ErrorRestUnknownProblem = 'unknown error'
 export const ErrorRestNoResponse = 'no response from server'
@@ -22,10 +23,10 @@ export const getSpaces = dispatch => {
     .catch(error => dispatch(restCallError(error)))
 }
 
-
+// TEST?
 export const addSpaceIfValid = (state, dispatch) => {
   const errors = Validation.collectErrors(state)
-  if (Validation.hasErrors(errors))
+  if (Validations.hasErrors(errors))
     dispatch(setErrors(errors))
   else
     postSpace(state, dispatch)
@@ -46,8 +47,16 @@ export const restCallError = error => {
   return setErrorMessage(ErrorRestUnknownProblem)
 }
 
-export const addValidation = (fieldName, predicate, messageFn, arg) =>
-  ({type: type.AddValidation, payload: { fieldName, predicate, messageFn, arg}})
+export const addValidation = (fieldName, validation) =>
+  ({type: type.AddValidation, payload: { fieldName, validation }})
+
+// TODO push to reducer
+export const addValidations = (dispatch, objectOfPossibleValidationNames) => {
+  Object.keys(objectOfPossibleValidationNames)
+    .filter(Validations.isValidation)
+    .forEach(key =>
+      dispatch(addValidation(objectOfPossibleValidationNames.stateKey, Validations.validation(key))))
+}
 
 export const setCurrentSpaceId = id => ({ type: type.SetCurrentSpaceId, payload: id})
 

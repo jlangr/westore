@@ -19,4 +19,3 @@ export const collectErrors = state =>
     .reduce(
       (errors, fieldName) => ({...errors, [fieldName]: validateField(state, fieldName)}),
       state.fieldErrors)
-

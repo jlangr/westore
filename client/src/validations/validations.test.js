@@ -1,4 +1,5 @@
 import {
+  collectValidations,
   hasContent, isAlpha, isValidZip, maxLen, minLen,
   validation, validationWithArg
 } from './validations'
@@ -33,6 +34,22 @@ describe('validationWithArg', () => {
 
       expect(validation.message(validation.arg)).toEqual('hey 3')
     })
+  })
+})
+
+describe('collectValidations from props', () => {
+  it('includes validations for appropriate props keys', () => {
+    // TODO mystery pass
+    const props = { 'whatever': 0, 'required': 0, 'maxLen': 0 }
+
+    const validations = collectValidations(props)
+
+    expect(Object.keys(validations)).toEqual([ 'required', 'maxLen' ])
+    expect(validations.required).toEqual(validation('required'))
+  })
+
+  it('returns empty list when nothing matches', () => {
+    expect(collectValidations({ 'boo': 42 })).toEqual({})
 
   })
 })

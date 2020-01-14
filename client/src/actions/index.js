@@ -50,8 +50,8 @@ export const restCallError = error => {
 export const addValidation = (fieldName, validation) =>
   ({type: type.AddValidation, payload: { fieldName, validation }})
 
-// TODO push to reducer
-export const addValidations = (dispatch, objectOfPossibleValidationNames) =>
+// TODO push to reducer and test
+export const registerValidations = (dispatch, objectOfPossibleValidationNames) =>
   Object.keys(objectOfPossibleValidationNames)
     .filter(Validations.isValidation)
     .forEach(key =>

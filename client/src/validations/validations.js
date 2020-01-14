@@ -21,7 +21,7 @@ const isDigit = c => /\d/.test(c)
 const validations = {
   required: { predicate: hasContent, message: () => 'Required' },
   isAlpha: { predicate: isAlpha, message: () => 'Must only contain alphabetic characters' },
-  isNumeric: { predicate: isNumeric, message: () => 'Must only contain numbers' }, // weak, do regex
+  isNumeric: { predicate: isNumeric, message: () => 'Must only contain numbers' },
   isValidZip: { predicate: isValidZip, message: () => 'Must match valid zip code ##### or #####-####' },
   maxLen: { predicate: maxLen, message: arg => `Max length of ${arg} exceeded` },
   minLen: { predicate: minLen, message: arg => `Min length of ${arg} not met` }

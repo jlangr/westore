@@ -1,6 +1,6 @@
 import {
   collectErrors,
-  validateValue,
+  validateValue
 } from './validation'
 
 import {
@@ -27,12 +27,12 @@ describe('field validations', () => {
 
 describe('collect errors', () => {
   it('associates error message with appropriate function', () => {
-    const init = { ...initialState, fields: {...initialState.fields, city: { value: '' }}}
+    const init = { ...initialState, fields: { ...initialState.fields, city: { value: '' } } }
     const state = reducer(init, addValidation('city', validation('required')))
 
     const errors = collectErrors(state)
 
-    expect(errors).toEqual({city: ['Required']})
+    expect(errors).toEqual({ city: ['Required'] })
   })
 
   it('supports multiple validations per field', () => {
@@ -40,15 +40,15 @@ describe('collect errors', () => {
       fieldValidations: {
         city: [
           validationWithArg('maxLen', 5, arg => `maxlen ${arg}`),
-          validation('isAlpha', () => 'only alpha') ]
+          validation('isAlpha', () => 'only alpha')]
       },
-      fields: {city: {value: 'A123456' }},
+      fields: { city: { value: 'A123456' } },
       fieldErrors: {}
     }
 
     const errors = collectErrors(state)
 
-    expect(errors).toEqual({city: ['maxlen 5', 'only alpha']})
+    expect(errors).toEqual({ city: ['maxlen 5', 'only alpha'] })
   })
 
   it('accumulates errors for multiple fields', () => {
@@ -58,15 +58,15 @@ describe('collect errors', () => {
         address: [validation('required', () => 'Required')]
       },
       fields: {
-        address: {value: ''},
-        city: {value: ''}
+        address: { value: '' },
+        city: { value: '' }
       },
       fieldErrors: {}
     }
 
     const errors = collectErrors(state, collectErrors(state))
 
-    expect(errors).toEqual({address: [ 'Required' ], city: [ 'Required' ]})
+    expect(errors).toEqual({ address: ['Required'], city: ['Required'] })
   })
 
   it('only processes fields with validations', () => {
@@ -78,7 +78,7 @@ describe('collect errors', () => {
 
     const errors = collectErrors(state, collectErrors(state))
 
-    expect(errors).toEqual({ city: [ 'Required' ] })
+    expect(errors).toEqual({ city: ['Required'] })
   })
 })
 
